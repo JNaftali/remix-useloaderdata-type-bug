@@ -1,0 +1,13 @@
+diff --git a/node_modules/@remix-run/react/dist/components.d.ts b/node_modules/@remix-run/react/dist/components.d.ts
+index 9824412..468728a 100644
+--- a/node_modules/@remix-run/react/dist/components.d.ts
++++ b/node_modules/@remix-run/react/dist/components.d.ts
+@@ -278,7 +278,7 @@ declare type SerializeType<T> = T extends JsonPrimitives ? T : T extends NonJson
+     toJSON(): infer U;
+ } ? U : T extends [] ? [] : T extends [unknown, ...unknown[]] ? {
+     [k in keyof T]: T[k] extends NonJsonPrimitives ? null : SerializeType<T[k]>;
+-} : T extends (infer U)[] ? (U extends NonJsonPrimitives ? null : SerializeType<U>)[] : T extends object ? {
++} : T extends ReadonlyArray<infer U> ? (U extends NonJsonPrimitives ? null : SerializeType<U>)[] : T extends object ? {
+     [k in keyof T as T[k] extends NonJsonPrimitives ? never : k]: SerializeType<T[k]>;
+ } : never;
+ export declare type UseDataFunctionReturn<T extends DataOrFunction> = T extends (...args: any[]) => infer Output ? Awaited<Output> extends TypedResponse<infer U> ? SerializeType<U> : SerializeType<Awaited<ReturnType<T>>> : SerializeType<Awaited<T>>;
